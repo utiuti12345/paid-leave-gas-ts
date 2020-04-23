@@ -1,3 +1,6 @@
+import { Util } from './util';
+import { Util } from './util';
+
 function doGet(request) {
   const template = 'index';
   const htmlOutput = HtmlService.createTemplateFromFile(template).evaluate();
@@ -13,28 +16,28 @@ function include(filename){
 }
 
 function doPost(e){
-  var paramater = getParameter(e.parameter);
+  var paramater = Util.getParameter(e.parameter);
 
-  var employeeInfo = new EmployeeInfo(paramater.employeeName,getSpreadId(paramater.employeeName),getMailAddressByEmployeeSheet(paramater.employeeName));
-  var approver = new ApproveInfo(paramater.employeeName,getMailAddressByApproveSheet(paramater.employeeName));
+  var employeeInfo = new EmployeeInfo(paramater.employeeName,Util.getSpreadId(paramater.employeeName),Util.getMailAddressByEmployeeSheet(paramater.employeeName));
+  var approver = new ApproveInfo(paramater.employeeName,Util.getMailAddressByApproveSheet(paramater.employeeName));
   
   var paidLeaveList = "";
   for(var i=0;i<paramater.dates.length;i++){
     var paidLeaveDate = new PaidLeaveDate(paramater.dates[i]);
     if(!(paidLeaveDate.isHoliday() || paidLeaveDate.isWeekend())){
       paidLeaveList += paidLeaveDate.formatDate() + " "
-      updatePaidTimeSheet(employeeInfo.getSpreadId(),paidLeaveDate.getDate());
+      Util.updatePaidTimeSheet(employeeInfo.getSpreadId(),paidLeaveDate.getDate());
     }
   }
 
   let now = new Date();
   let nowDate = now.getFullYear() + "-" + (now.getMonth() + 1) + "-" + now.getDay(); 
   
-  var aprroveBodies = generateAprroveBodies(employeeInfo.getEmployeeName(),paidLeaveList);
-  sendMail(approver.getMailAddress(),subject,aprroveBodies.plain,aprroveBodies.html);
+  var aprroveBodies = Util.generateAprroveBodies(employeeInfo.getEmployeeName(),paidLeaveList);
+  Util.sendMail(approver.getMailAddress(),subject,aprroveBodies.plain,aprroveBodies.html);
 
-  var applicantBodies = generateApplicantBodies(employeeInfo.getEmployeeName(),paidLeaveList,getBalancePaidLeave(employeeInfo.getSpreadId(),nowDate),employeeInfo.getSpreadId());
-  sendMail(employeeInfo.getMailAddress(),subject,applicantBodies.plain,applicantBodies.html);
+  var applicantBodies = Util.generateApplicantBodies(employeeInfo.getEmployeeName(),paidLeaveList,Util.getBalancePaidLeave(employeeInfo.getSpreadId(),nowDate),employeeInfo.getSpreadId());
+  Util.sendMail(employeeInfo.getMailAddress(),subject,applicantBodies.plain,applicantBodies.html);
   
   return HtmlService.createHtmlOutput("完了しました。メールを確認してください。");
 }
