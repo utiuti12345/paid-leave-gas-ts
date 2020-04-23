@@ -106,4 +106,4 @@ dist
 # clasp gas ignore
 .clasp.json
 creds.json
-.claspsrc.json
+.clasprc.json
