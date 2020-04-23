@@ -102,3 +102,8 @@ dist
 
 # TernJS port file
 .tern-port
+
+# clasp gas ignore
+.clasp.json
+creds.json
+.claspsrc.json
