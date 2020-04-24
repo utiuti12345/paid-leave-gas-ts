@@ -29,7 +29,7 @@
               <div class="form-group">
                 <label for="date" class="control-label col-xs-4">日付：</label>
                 <div class="col-xs-5" id="date-parent">
-                  <input type="date" class="form-control col-xs-5" min="2020-04-01" name="date1"/>
+                  <input type="date" class="form-control col-xs-5" min="2020-04-01" name="date1" id="date1" onchange="changeDate()"/>
                 </div>
               </div>
             </div>
@@ -42,7 +42,7 @@
               <div class="form-group">
                 <label for="start-date" class="control-label col-xs-4">開始日:</label>
                 <div class="col-xs-5">
-                  <input type="date" class="form-control col-xs-5" min="2020-04-01" name="start_date"/>
+                  <input type="date" class="form-control col-xs-5" min="2020-04-01" name="start_date" id="start_date" onchange="changeStartDate()"/>
                 </div>
               </div>
             </div>
@@ -50,7 +50,7 @@
               <div class="form-group">
                 <label for="end-date" class="control-label col-xs-4">終了日:</label>
                 <div class="col-xs-5">
-                  <input type="date" class="form-control col-xs-4" min="2020-04-01" name="end_date"/>
+                  <input type="date" class="form-control col-xs-4" min="2020-04-01" name="end_date" id="end_date" onchange="changeStartDate()"/>
                 </div>
               </div>
             </div>
@@ -65,7 +65,7 @@
             </div>
             <div class="form-group">
               <div class="col-xs-offset-4 col-xs-4">
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button id="submit" type="submit" class="btn btn-primary" disabled="true">承認する</button>
               </div>
             </div>
           </form>

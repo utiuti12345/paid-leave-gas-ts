@@ -2,25 +2,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 <script>
-document.onload = load();
+window.onload = load();
 
 var idx = 2;
-
-// 子要素を追加(新規)
-function addChildCreate() {
-   var child = document.createElement("input");
-   addChild(child);
-}
-    
-// 子要素を追加(共通)
-function addChild(child) {
-   child.setAttribute("type", "date");
-   child.setAttribute("name", "date" + idx);
-   child.setAttribute("class", "form-control");
-   idx++;
-   child = document.getElementById("date-parent").appendChild(child);
-   console.log(child);
-}
     
 function getEmployeeList() {
     try {
@@ -64,6 +48,61 @@ function getApproveList() {
     } catch (e) {
         console.error(e);
     }
+}
+
+function changeStartDate(){
+  for(var i=1;;i++){
+    var date = document.getElementById('date'+i);
+    if(date === null){
+      break;
+    }
+    else if(date.value === ""){
+      continue;
+    }
+    else{
+      date.value = "";
+    }
+  }
+
+  if(document.getElementById('start_date').value !== "" && document.getElementById('end_date').value !== ""){
+    document.getElementById('submit').removeAttribute("disabled");
+  }else{
+    document.getElementById('submit').setAttribute("disabled", true);
+  }
+}
+
+function changeDate(){
+  document.getElementById('start_date').value = "";
+  document.getElementById('end_date').value = "";
+
+  for(var i=1;;i++){
+    var date = document.getElementById('date'+i);
+    if(date === null){
+      break;
+    }else if(date.value !== ""){
+      document.getElementById('submit').removeAttribute("disabled");
+      break;
+    }else{
+      document.getElementById('submit').setAttribute("disabled", true);
+    }
+  }
+}
+
+// 子要素を追加(新規)
+function addChildCreate() {
+   var child = document.createElement("input");
+   addChild(child);
+}
+    
+// 子要素を追加(共通)
+function addChild(child) {
+  var date1 = document.getElementById("date1");
+  var child = date1.cloneNode(true);
+  child.setAttribute("name", "date" + idx);
+  child.setAttribute("id", "date" + idx);
+  child.value = "";
+  idx++;
+  child = document.getElementById("date-parent").appendChild(child);
 }
 
 function load(){
