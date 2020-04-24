@@ -1,4 +1,4 @@
-class EmployeeInfo{
+class EmployeeInfo {
   private employeeName:string
   private spreadId:string
   private mailAddress:string

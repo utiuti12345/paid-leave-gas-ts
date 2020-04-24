@@ -186,9 +186,9 @@ function getBalancePaidLeaveTest(){
 }
 
 // 有給休暇シートの更新
-function updatePaidTimeSheet(spreadId,paidDateTime){
+function updatePaidTimeSheet(spreadId,sheetName,paidDateTime){
   var date = new Date(paidDateTime);
-  var sheet = getSheet(spreadId,date.getFullYear());
+  var sheet = getSheet(spreadId,sheetName);
   var row = findRow(sheet,(date.getMonth()+1) + "月",2);
   var col = findColumn(sheet,date.getDate(),8);
   sheet.getRange(row, col).setValue(paidStatus().digestion);
