@@ -6,65 +6,56 @@
     <?!=include("index.js")?>
   </head>
   <body>
-    <div class="col-md-10 col-md-offset-1">
+    <div class="col-md-8 col-md-offset-2">
       <div class="panel panel-default">
         <div class="panel-heading">
           <p>有給申請フォーム</p>
         </div>
         <div class="panel-body">
-          <div class="form-group">
-            <button onclick="addChildCreate()">日付を追加</button>
+          <div class="col-sm-8 col-sm-offset-3">
+            <div class="form-group">
+              <button class="btn btn-primary" onclick="addChildCreate()">日付を追加</button>
+            </div>
           </div>
           <form class="form-horizontal" method="post" action="https://script.google.com/a/forge.co.jp/macros/s/AKfycbycVDj9XMS-lhxfBnTMpao7LDt6LgsD7x4HSAL5GyOTK9CSelg/exec">
-            <div class="col-sm-8 col-sm-offset-2">
+            <div class="col-sm-8 col-sm-offset-3">
               <div class="form-group">
-                <label for="employee-name" class="control-label col-xs-4">社員名:</label>
-                <div class="col-xs-5">
-                  <select name="employee_name" id="employee_id" class="form-control col-xs-5">
-                  </select>
+                <label for="employee-name" class="control-label ">社員名</label>
+                <select name="employee_name" id="employee_id" class="form-control">
+                </select>
+              </div>
+            </div>
+            <div class="col-sm-8 col-sm-offset-3">
+              <div class="form-group">
+                <label for="approve-name" class="control-label">承認者</label>
+                <select name="approve_name" id="approve_id" class="form-control">
+                </select>
+              </div>
+            </div>
+            <div class="col-sm-8 col-sm-offset-3">
+              <div class="form-group">
+                <label for="date" class="control-label">日付</label>
+                <div id="date-parent">
+                  <input type="date" class="form-control" min="2020-04-01" name="date1" id="date1" onchange="changeDate()"/>
                 </div>
               </div>
             </div>
-            <div class="col-sm-8 col-sm-offset-2">
+            <div class="col-sm-8 col-sm-offset-3">
               <div class="form-group">
-                <label for="date" class="control-label col-xs-4">日付：</label>
-                <div class="col-xs-5" id="date-parent">
-                  <input type="date" class="form-control col-xs-5" min="2020-04-01" name="date1" id="date1" onchange="changeDate()"/>
-                </div>
+                <label for="period" class="control-label">期間の場合は以下を記載</label>
               </div>
             </div>
-            <div class="col-sm-8 col-sm-offset-2">
+            <div class="col-sm-8 col-sm-offset-3 form-inline">
               <div class="form-group">
-                <label for="period" class="control-label col-xs-8">期間の場合は以下を記載</label>
+                <input type="date" class="form-control" min="2020-04-01" name="start_date" id="start_date" onchange="changeStartDate()"/>
+                <label class="control-label">〜</label>
+                <input type="date" class="form-control" min="2020-04-01" name="end_date" id="end_date" onchange="changeStartDate()"/>
               </div>
             </div>
-            <div class="col-sm-8 col-sm-offset-2">
-              <div class="form-group">
-                <label for="start-date" class="control-label col-xs-4">開始日:</label>
-                <div class="col-xs-5">
-                  <input type="date" class="form-control col-xs-5" min="2020-04-01" name="start_date" id="start_date" onchange="changeStartDate()"/>
-                </div>
-              </div>
+            <div class="col-sm-8 col-sm-offset-3">
             </div>
-            <div class="col-sm-8 col-sm-offset-2">
+            <div class="col-sm-8 col-sm-offset-3">
               <div class="form-group">
-                <label for="end-date" class="control-label col-xs-4">終了日:</label>
-                <div class="col-xs-5">
-                  <input type="date" class="form-control col-xs-4" min="2020-04-01" name="end_date" id="end_date" onchange="changeStartDate()"/>
-                </div>
-              </div>
-            </div>
-            <div class="col-sm-8 col-sm-offset-2">
-              <div class="form-group">
-                <label for="approve-name" class="control-label col-xs-4">承認者:</label>
-                <div class="col-xs-5">
-                  <select name="approve_name" id="approve_id" class="form-control col-xs-4">
-                  </select>
-                </div>
-              </div>
-            </div>
-            <div class="form-group">
-              <div class="col-xs-offset-4 col-xs-4">
                 <button id="submit" type="submit" class="btn btn-primary" disabled="true">承認する</button>
               </div>
             </div>
