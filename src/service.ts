@@ -17,24 +17,23 @@ function doPost(e){
 
   var employeeInfo = new EmployeeInfo(paramater.employeeName,getSpreadId(paramater.employeeName),getMailAddressByEmployeeSheet(paramater.employeeName));
   var approver = new ApproveInfo(paramater.employeeName,getMailAddressByApproveSheet(paramater.employeeName));
-  
+
   var paidLeaveList = "";
   for(var i=0;i<paramater.dates.length;i++){
     var paidLeaveDate = new PaidLeaveDate(paramater.dates[i]);
     if(!(paidLeaveDate.isHoliday() || paidLeaveDate.isWeekend())){
       paidLeaveList += paidLeaveDate.formatDate() + " "
-      updatePaidTimeSheet(employeeInfo.getSpreadId(),paidLeaveDate.getDate());
+      updatePaidTimeSheet(getSpreadId(paramater.employeeName),paidLeaveDate.getYear(),paidLeaveDate.getDate());
     }
   }
 
   let now = new Date();
-  let nowDate = now.getFullYear() + "-" + (now.getMonth() + 1) + "-" + now.getDay(); 
   
-  var aprroveBodies = generateAprroveBodies(employeeInfo.getEmployeeName(),paidLeaveList);
-  sendMail(approver.getMailAddress(),subject,aprroveBodies.plain,aprroveBodies.html);
+  var aprroveBodies = generateAprroveBodies(paramater.employeeName,paidLeaveList);
+  sendMail(getMailAddressByApproveSheet(paramater.employeeName),subject,aprroveBodies.plain,aprroveBodies.html);
 
-  var applicantBodies = generateApplicantBodies(employeeInfo.getEmployeeName(),paidLeaveList,getBalancePaidLeave(employeeInfo.getSpreadId(),nowDate),employeeInfo.getSpreadId());
-  sendMail(employeeInfo.getMailAddress(),subject,applicantBodies.plain,applicantBodies.html);
+  var applicantBodies = generateApplicantBodies(paramater.employeeName,paidLeaveList,getBalancePaidLeave(getSpreadId(paramater.employeeName),now),getSpreadId(paramater.employeeName));
+  sendMail(getMailAddressByEmployeeSheet(paramater.employeeName),subject,applicantBodies.plain,applicantBodies.html);
   
   return HtmlService.createHtmlOutput("完了しました。メールを確認してください。");
 }

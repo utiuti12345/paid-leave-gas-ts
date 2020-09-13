@@ -276,14 +276,14 @@ function getPaidLeave(joiningDate){
 // 承認者シートからメールアドレス取得
 function getMailAddressByApproveSheet(name){
   var sheet = getSheet(masterSpreadSheetId,approveList);
-  var row = findRow(sheet,name,2);
+  var row = findRow(sheet,"藤井大輔",2);
   var col = findColumn(sheet,'メールアドレス',1);
   return sheet.getRange(row, col).getValue();
 }
 
 function getMailAddressByApproveSheetTest(){
-  let name = getMailAddressByApproveSheet("社員1");
-  let spreadId = getSpreadId("社員1");
+  let name = getMailAddressByApproveSheet("");
+  let spreadId = getSpreadId("");
   console.log(name + spreadId);
 }
 
